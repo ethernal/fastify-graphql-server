@@ -24,6 +24,7 @@
 		"@types/node": "^16.4.13",
 		"@types/source-map-support": "^0.5.4",
 		"jest": "^27.0.5",
+		"mercurius-codegen": "^1.8.0",
 		"nodemon": "^2.0.12",
 		"onchange": "^7.1.0",
 		"serve": "^12.0.0",
