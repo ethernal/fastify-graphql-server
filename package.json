@@ -1,20 +1,35 @@
 {
-  "name": "variables",
-  "version": "1.0.0",
-  "main": "server.js",
-  "license": "MIT",
-  "scripts": {
-    "test": "jest",
-    "dev": "node ./src/server.js"
-  },
-  "type": "module",
-  "dependencies": {
-    "fastify": "^3.20.1",
-    "ts-jest": "^27.0.3"
-  },
-  "devDependencies": {
-    "@types/jest": "^26.0.23",
-    "jest": "^27.0.5",
-    "typescript": "^4.3.4"
-  }
+	"name": "variables",
+	"version": "1.0.0",
+	"main": "./src/server.ts",
+	"license": "MIT",
+	"scripts": {
+		"typescript:verify:install": "npx ts-node src/index.ts",
+		"test": "jest --coverage",
+		"test:watch": "jest --coverage --watchAll",
+		"build": "tsc",
+		"build: watch": "onchange 'src/**/*.ts' -- npm run build",
+		"view:coverage": "serve coverage/lcov-report",
+		"clean": "rm -rf coverage src/**/*.map",
+		"dev": "nodemon ./src/server.ts",
+		"start": "node src/index.js"
+	},
+	"dependencies": {
+		"dotenv": "^10.0.0",
+		"fastify": "^3.20.1"
+	},
+	"devDependencies": {
+		"@types/jest": "^26.0.23",
+		"@types/node": "^16.4.13",
+		"@types/source-map-support": "^0.5.4",
+		"jest": "^27.0.5",
+		"nodemon": "^2.0.12",
+		"onchange": "^7.1.0",
+		"serve": "^12.0.0",
+		"source-map-support": "^0.5.19",
+		"ts-jest": "^27.0.3",
+		"ts-node": "^10.1.0",
+		"tslib": "^2.3.0",
+		"typescript": "^4.3.5"
+	}
 }
