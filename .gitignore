@@ -1,5 +1,13 @@
+# do not include imported modules in version control
 node_modules
-*.log
-.vscode
+
+# Keep environment variables out of version control
+.env
+
+# Keep tests coverage out of version control
 coverage
-src/**/*.map
+
+# Do not store LOG files in the VCS
+*.log
+
+src/generated/*
