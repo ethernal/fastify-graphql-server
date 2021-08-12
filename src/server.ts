@@ -1,8 +1,10 @@
+import dotenv from 'dotenv';
 import fastify, { FastifyInstance, FastifyReply, FastifyRequest } from 'fastify';
+import fastifyCors from 'fastify-cors';
 import mercurius from 'mercurius';
 import mercuriusCodegen from 'mercurius-codegen';
+import { env } from 'yargs';
 
-// mergeTypeDefs seems not to be needed as merging is done by importing multiple .graphql files
 import { PrismaClient } from '@prisma/client';
 
 // Import typeDefs after merging
@@ -15,7 +17,7 @@ import { routes } from './routes/routes';
 const prisma = new PrismaClient();
 
 // Prepare Fastify server
-const server: FastifyInstance = fastify({ logger: false });
+export const server: FastifyInstance = fastify({ logger: false });
 // Configure server connection data
 // TODO: move these to .env file
 const SERVER_ADDRESS = "127.0.0.1";
@@ -41,6 +43,18 @@ declare module "mercurius" {
 }
 // End of Mercurius with Typescript configuration
 
+// Configure the server based on the env being used
+if (process.env.NODE_ENV === "development") {
+	dotenv.config();
+	// Cross Origin Resource Sharing from any domain during development
+	server.register(fastifyCors, { origin: "*" });
+} else if (process.env.NODE_ENV === "test") {
+	server.register(fastifyCors, { origin: "*" });
+} else if (process.env.NODE_ENV === "production") {
+	// Use setting in ENV variables setup on the server
+	server.register(fastifyCors, { origin: process.env.CORS_ORIGIN });
+}
+// Import routes for the server to use
 server.register(routes);
 
 server.register(mercurius, {

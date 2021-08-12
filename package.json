@@ -21,8 +21,8 @@
 		"cross-env": "^7.0.3",
 		"dotenv": "^10.0.0",
 		"fastify": "^3.20.1",
-		"mercurius": "^8.1.1",
-		"mercurius-integration-testing": "^3.2.0"
+		"fastify-cors": "^6.0.2",
+		"mercurius": "^8.1.1"
 	},
 	"devDependencies": {
 		"@graphql-tools/graphql-file-loader": "^7.0.2",
@@ -34,11 +34,13 @@
 		"@types/source-map-support": "^0.5.4",
 		"jest": "^27.0.5",
 		"mercurius-codegen": "^1.8.0",
+		"mercurius-integration-testing": "^3.2.0",
 		"nodemon": "^2.0.12",
 		"onchange": "^7.1.0",
 		"prisma": "2.28.0",
 		"serve": "^12.0.0",
 		"source-map-support": "^0.5.19",
+		"supertest": "^6.1.5",
 		"ts-jest": "^27.0.3",
 		"ts-node": "^10.1.0",
 		"tslib": "^2.3.0",
