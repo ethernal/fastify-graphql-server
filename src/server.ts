@@ -65,12 +65,14 @@ server.register(mercurius, {
 	graphiql: "graphiql",
 });
 
-mercuriusCodegen(server, {
-	// Commonly relative to your root package.json
-	targetPath: "./src/generated/typings/generatedTypings.ts",
-	// You can also specify an array of globs
-	// operationsGlob: "./src/graphql/schema/operations/**/*.graphql",
-}).catch(console.error);
+if (process.env.NODE_ENV !== "test") {
+	mercuriusCodegen(server, {
+		// Commonly relative to your root package.json
+		targetPath: "./src/generated/typings/generatedTypings.ts",
+		// You can also specify an array of globs
+		// operationsGlob: "./src/graphql/schema/operations/**/*.graphql",
+	}).catch(console.error);
+}
 
 const start = async () => {
 	try {
