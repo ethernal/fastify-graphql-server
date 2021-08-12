@@ -43,11 +43,21 @@ declare module "mercurius" {
 }
 // End of Mercurius with Typescript configuration
 
+function generateTypings() {
+	mercuriusCodegen(server, {
+		// Commonly relative to your root package.json
+		targetPath: "./src/generated/typings/generatedTypings.ts",
+		// You can also specify an array of globs
+		// operationsGlob: "./src/graphql/schema/operations/**/*.graphql",
+	}).catch(console.error);
+}
+
 // Configure the server based on the env being used
 if (process.env.NODE_ENV === "development") {
 	dotenv.config();
 	// Cross Origin Resource Sharing from any domain during development
 	server.register(fastifyCors, { origin: "*" });
+	generateTypings();
 } else if (process.env.NODE_ENV === "test") {
 	server.register(fastifyCors, { origin: "*" });
 } else if (process.env.NODE_ENV === "production") {
@@ -56,7 +66,6 @@ if (process.env.NODE_ENV === "development") {
 }
 // Import routes for the server to use
 server.register(routes);
-
 server.register(mercurius, {
 	schema,
 	resolvers,
@@ -64,15 +73,6 @@ server.register(mercurius, {
 	// Enable the GraphiQL Playground
 	graphiql: "graphiql",
 });
-
-if (process.env.NODE_ENV !== "test") {
-	mercuriusCodegen(server, {
-		// Commonly relative to your root package.json
-		targetPath: "./src/generated/typings/generatedTypings.ts",
-		// You can also specify an array of globs
-		// operationsGlob: "./src/graphql/schema/operations/**/*.graphql",
-	}).catch(console.error);
-}
 
 const start = async () => {
 	try {

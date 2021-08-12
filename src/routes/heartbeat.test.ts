@@ -26,4 +26,4 @@ describe("Test GraphQL Queries", () => {
 	});
 });
 
-afterAll(() => server.close());
+afterAll(async () => await server.close());
