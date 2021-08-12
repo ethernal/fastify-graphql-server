@@ -6,6 +6,7 @@
 	"scripts": {
 		"typescript:verify:install": "npx ts-node src/index.ts",
 		"test": "cross-env NODE_ENV=test jest --coverage",
+		"test:dev": "cross-env NODE_ENV=test jest --detectOpenHandles",
 		"test:watch": "cross-env NODE_ENV=test jest --coverage --watchAll",
 		"build": "tsc",
 		"build:watch": "onchange 'src/**/*.ts' -- npm run build",
