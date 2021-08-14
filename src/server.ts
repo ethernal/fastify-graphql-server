@@ -1,9 +1,9 @@
+import AltairFastify from 'altair-fastify-plugin';
 import dotenv from 'dotenv';
 import fastify, { FastifyInstance, FastifyReply, FastifyRequest } from 'fastify';
 import fastifyCors from 'fastify-cors';
 import mercurius from 'mercurius';
 import mercuriusCodegen from 'mercurius-codegen';
-import { env } from 'yargs';
 
 import { PrismaClient } from '@prisma/client';
 
@@ -70,8 +70,17 @@ server.register(mercurius, {
 	schema,
 	resolvers,
 	context: buildContext,
-	// Enable the GraphiQL Playground
-	graphiql: "graphiql",
+	// Disable the GraphiQL and use Altair instead
+	graphiql: false,
+	ide: false,
+	path: "/graphql",
+});
+
+server.register(AltairFastify, {
+	path: "/altair",
+	baseURL: "/altair/",
+	// 'endpointURL' MUST be the same as the mercurius 'path'
+	endpointURL: "/graphql",
 });
 
 const start = async () => {
