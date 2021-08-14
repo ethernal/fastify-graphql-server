@@ -8,6 +8,7 @@ coverage
 *.log
 
 src/generated/*
+prisma/migrations
 
 # Logs
 logs
