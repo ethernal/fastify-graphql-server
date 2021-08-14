@@ -16,9 +16,9 @@ model User {
   login    String  @unique
   password String?
 
-  createdAt   DateTime  @default(now())
+  createdAt   DateTime?  @default(now())
   modifiedAt  DateTime?
-  createdById String
+  createdById String?
   createdBy   User?     @relation("Owner", fields: [createdById], references: [id])
   User        User[]    @relation("Owner")
   person      Person?

@@ -20,8 +20,8 @@ const prisma = new PrismaClient();
 export const server: FastifyInstance = fastify({ logger: false });
 // Configure server connection data
 // TODO: move these to .env file
-const SERVER_ADDRESS = "127.0.0.1";
-const SERVER_PORT = 3000;
+const SERVER_ADDRESS = process.env.SERVER_ADDRESS || "127.0.0.1";
+const SERVER_PORT = process.env.SERVER_PORT || 3000;
 
 // Mercurius with Typescript configuration
 
@@ -41,16 +41,41 @@ declare module "mercurius" {
 	interface MercuriusContext
 		extends PromiseType<ReturnType<typeof buildContext>> {}
 }
+
 // End of Mercurius with Typescript configuration
 
 function generateTypings() {
+	console.log("Generating Typings");
 	mercuriusCodegen(server, {
 		// Commonly relative to your root package.json
 		targetPath: "./src/generated/typings/generatedTypings.ts",
 		// You can also specify an array of globs
-		// operationsGlob: "./src/graphql/schema/operations/**/*.graphql",
-	}).catch(console.error);
+		operationsGlob: "./src/graphql/schema/operations/**/*.graphql",
+	})
+		.then(() => console.log("Generated Typings"))
+		.catch(console.error);
 }
+
+// Import routes for the server to use
+server.register(routes);
+server.register(mercurius, {
+	schema,
+	resolvers,
+	context: buildContext,
+
+	// Disable the GraphiQL and use Altair instead
+	graphiql: false,
+	ide: false,
+	// Set the path to the API to default /graphql
+	path: "/graphql",
+});
+
+server.register(AltairFastify, {
+	path: "/altair",
+	baseURL: "/altair/",
+	// 'endpointURL' MUST be the same as the mercurius 'path'
+	endpointURL: "/graphql",
+});
 
 // Configure the server based on the env being used
 if (process.env.NODE_ENV === "development") {
@@ -64,30 +89,11 @@ if (process.env.NODE_ENV === "development") {
 	// Use setting in ENV variables setup on the server
 	server.register(fastifyCors, { origin: process.env.CORS_ORIGIN });
 }
-// Import routes for the server to use
-server.register(routes);
-server.register(mercurius, {
-	schema,
-	resolvers,
-	context: buildContext,
-
-	// Disable the GraphiQL and use Altair instead
-	graphiql: false,
-	ide: false,
-	path: "/graphql",
-});
-
-server.register(AltairFastify, {
-	path: "/altair",
-	baseURL: "/altair/",
-	// 'endpointURL' MUST be the same as the mercurius 'path'
-	endpointURL: "/graphql",
->> 6775f963d5daa97e53f74cdf681dec0f452c5efb
-});
 
 const start = async () => {
 	try {
 		await server.listen(SERVER_PORT, SERVER_ADDRESS);
+		console.log(`Running in "${process.env.NODE_ENV}" mode.`);
 		console.log(`Server listening at ${SERVER_ADDRESS}:${SERVER_PORT}`);
 	} catch (err) {
 		server.log.error(err);

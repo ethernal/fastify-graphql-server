@@ -5,10 +5,9 @@ schema {
 type User {
 	id: ID!
 	email: String!
-  login: String!
+	login: String!
 }
 
 type Query {
-	allUsers: User[]!
-	user: User!
+	user(userId: String!): User!
 }

@@ -16,6 +16,7 @@ const loadedFiles = loadFilesSync(
 
 const typeDefs = mergeTypeDefs(loadedFiles);
 const schema = print(typeDefs);
+fs.mkdirSync("./src/generated/schema", { recursive: true });
 fs.writeFileSync("./src/generated/schema/combinedSchema.graphql", schema);
 
 export { typeDefs };
