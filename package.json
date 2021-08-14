@@ -12,11 +12,22 @@
 		"build": "tsc",
 		"build:watch": "onchange 'src/**/*.ts' -- npm run build",
 		"view:coverage": "serve coverage/lcov-report",
-		"clean": "rm -rf coverage dist",
-		"dev": "nodemon ./src/server.ts",
+		"clean": "rm -rf coverage dist src/generated",
+		"ts-node": "ts-node --compiler-options \"{\\\"module\\\":\\\"commonjs\\\"}\"",
+		"dev": "npm run clean && npm run generate && cross-env NODE_ENV=development nodemon --watch ./src/graphql -e js,ts,tsx,graphql --watch ./src/**/*.ts",
 		"migrate": "npx prisma migrate dev",
+		"seed": "npx prisma db seed --preview-feature",
 		"generate": "npx prisma generate",
 		"start": "node src/index.js"
+	},
+	"nodemonConfig": {
+		"ignore": [
+			"tests/*"
+		],
+		"delay": 100
+	},
+	"resolutions": {
+		"graphql": "^15.5"
 	},
 	"dependencies": {
 		"@prisma/client": "^2.29.1",
@@ -28,8 +39,6 @@
 		"mercurius": "^8.1.1"
 	},
 	"devDependencies": {
-		"@graphql-tools/graphql-file-loader": "^7.0.2",
-		"@graphql-tools/load": "^7.1.2",
 		"@graphql-tools/schema": "^8.0.3",
 		"@graphql-typed-document-node/core": "^3.1.0",
 		"@types/jest": "^26.0.23",
@@ -43,7 +52,6 @@
 		"prisma": "^2.29.1",
 		"serve": "^12.0.0",
 		"source-map-support": "^0.5.19",
-		"supertest": "^6.1.5",
 		"ts-jest": "^27.0.3",
 		"ts-node": "^10.1.0",
 		"tslib": "^2.3.0",
