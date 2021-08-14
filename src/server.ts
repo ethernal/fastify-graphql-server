@@ -82,6 +82,7 @@ server.register(AltairFastify, {
 	baseURL: "/altair/",
 	// 'endpointURL' MUST be the same as the mercurius 'path'
 	endpointURL: "/graphql",
+>> 6775f963d5daa97e53f74cdf681dec0f452c5efb
 });
 
 const start = async () => {
