@@ -2,6 +2,13 @@ schema {
 	query: Query
 }
 
+type User {
+	id: ID!
+	email: String!
+  login: String!
+}
+
 type Query {
-	hello(name: String!): String!
+	allUsers: User[]!
+	user: User!
 }

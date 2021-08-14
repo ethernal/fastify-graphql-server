@@ -70,6 +70,7 @@ server.register(mercurius, {
 	schema,
 	resolvers,
 	context: buildContext,
+
 	// Disable the GraphiQL and use Altair instead
 	graphiql: false,
 	ide: false,

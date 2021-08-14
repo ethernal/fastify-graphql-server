@@ -11,11 +11,74 @@ generator client {
 }
 
 model User {
-  id          String      @id @default(cuid())
-  email       String      @unique
-  displayName String?
-  firstName   String?
+  id       String  @id @default(cuid())
+  email    String  @unique
+  login    String  @unique
+  password String?
 
-  createdAt   DateTime    @default(now())
+  createdAt   DateTime  @default(now())
   modifiedAt  DateTime?
+  createdById String
+  createdBy   User?     @relation("Owner", fields: [createdById], references: [id])
+  User        User[]    @relation("Owner")
+  person      Person?
+}
+
+model Person {
+  id         String          @id @default(cuid())
+  firstName  String
+  lastName   String
+  label      String
+  locationId String?
+  location   Location?       @relation(fields: [locationId], references: [id])
+  personData PersonData?     @relation(fields: [personDataId], references: [id])
+  social     SocialProfile?  @relation(fields: [socialProfileId], references: [id])
+  work       WorkExperience? @relation(fields: [workExperienceId], references: [id])
+  createdBy  User            @relation(fields: [createdById], references: [id])
+
+  workExperienceId String?
+  personDataId     String?
+  socialProfileId  String?
+  createdById      String
+
+}
+
+model WorkExperience {
+  id         String   @id @default(cuid())
+  name       String
+  position   String
+  url        String
+  startDate  DateTime
+  endDate    DateTime
+  summary    String
+  highlights String[]
+  Person     Person[]
+}
+
+model SocialProfile {
+  id       String   @id @default(cuid())
+  network  String
+  username String
+  url      String
+  Person   Person[]
+}
+
+model PersonData {
+  id      String   @id @default(cuid())
+  photo   String?
+  phone   String?
+  email   String   @unique
+  url     String?
+  summary String?
+  Person  Person[]
+}
+
+model Location {
+  id          String   @id @default(cuid())
+  address     String
+  postalCode  String
+  city        String
+  countryCode String
+  region      String?
+  Person      Person[]
 }
