@@ -70,7 +70,7 @@ server.register(mercurius, {
 	schema,
 	resolvers,
 	context: buildContext,
-	// Enable the GraphiQL Playground
+	// Enable the GraphiQL "Playground"
 	graphiql: "graphiql",
 });
 
