@@ -5,19 +5,19 @@
 	"license": "MIT",
 	"scripts": {
 		"typescript:verify:install": "npx ts-node src/index.ts",
+		"ts-node": "ts-node --compiler-options \"{\\\"module\\\":\\\"commonjs\\\"}\"",
+		"format:prisma": "npx prisma format",
+		"view:coverage": "serve coverage/lcov-report",
 		"test": "cross-env NODE_ENV=test jest --coverage",
 		"test:dev": "cross-env NODE_ENV=test jest --detectOpenHandles",
 		"test:watch": "cross-env NODE_ENV=test jest --coverage --watchAll",
-		"format:prisma": "npx prisma format",
 		"build": "tsc",
 		"build:watch": "onchange 'src/**/*.ts' -- npm run build",
-		"view:coverage": "serve coverage/lcov-report",
 		"clean": "rm -rf coverage dist src/generated",
-		"ts-node": "ts-node --compiler-options \"{\\\"module\\\":\\\"commonjs\\\"}\"",
 		"dev": "npm run clean && npm run generate && cross-env NODE_ENV=development nodemon --watch ./src/graphql -e js,ts,tsx,graphql --watch ./src/**/*.ts",
+		"generate": "npx prisma generate",
 		"migrate": "npx prisma migrate dev",
 		"seed": "npx prisma db seed --preview-feature",
-		"generate": "npx prisma generate",
 		"start": "node src/index.js"
 	},
 	"nodemonConfig": {
