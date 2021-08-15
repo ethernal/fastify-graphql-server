@@ -2952,6 +2952,13 @@ graphql-jit@^0.5.1:
     lodash.merge "4.6.2"
     lodash.mergewith "4.6.2"
 
+graphql-scalars@^1.10.0:
+  version "1.10.0"
+  resolved "https://registry.yarnpkg.com/graphql-scalars/-/graphql-scalars-1.10.0.tgz#9daf9252b16e6fae553a06976163a23f41b65dfd"
+  integrity sha512-LONlj8FfhA2iGpkZJWf5e4PVAHXxnZEHSOEvowLYvNXl/TNnhIck8VmE+lren/aa6GKrG+lZufo5lgnyjxcF6g==
+  dependencies:
+    tslib "~2.2.0"
+
 graphql-tag@^2.11.0, graphql-tag@^2.12.3:
   version "2.12.5"
   resolved "https://registry.yarnpkg.com/graphql-tag/-/graphql-tag-2.12.5.tgz#5cff974a67b417747d05c8d9f5f3cb4495d0db8f"

@@ -51,6 +51,11 @@ function generateTypings() {
 		targetPath: "./src/generated/typings/generatedTypings.ts",
 		// You can also specify an array of globs
 		operationsGlob: "./src/graphql/schema/operations/**/*.graphql",
+		codegenConfig: {
+			scalars: {
+				DateTime: "Date",
+			},
+		},
 	})
 		.then(() => console.log("Generated Typings"))
 		.catch(console.error);

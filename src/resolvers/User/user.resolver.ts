@@ -1,6 +1,6 @@
-import { IResolvers } from "mercurius";
+import { IResolvers } from 'mercurius';
 
-import { User as PrismaUser } from "@prisma/client";
+import { User as PrismaUser } from '@prisma/client';
 
 // import { User } from '../../generated/typings/generatedTypings';
 
@@ -8,7 +8,6 @@ const resolvers: IResolvers = {
 	Query: {
 		user: async (root, { userId }, ctx, info) => {
 			let result = null;
-			console.log(`User ID: ${userId}`);
 
 			const userData: PrismaUser | null = await ctx.prisma.user.findUnique({
 				where: { id: userId! },
@@ -19,6 +18,7 @@ const resolvers: IResolvers = {
 					id: userData.id,
 					email: userData.email,
 					login: userData.login,
+					createdAt: userData.createdAt,
 				};
 				result = user;
 			} else {

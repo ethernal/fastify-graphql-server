@@ -1,3 +1,6 @@
+scalar DateTime
+scalar Date
+
 schema {
 	query: Query
 }
@@ -6,6 +9,7 @@ type User {
 	id: ID!
 	email: String!
 	login: String!
+	createdAt: DateTime
 }
 
 type Query {
