@@ -61,3 +61,13 @@ Resolvers are deep merged and exported by `mergedResolvers.ts` from root of `res
 ```js
 import resolvers from './resolvers/mergedResolvers;
 ```
+
+## Adding custom scalar GraphQL type
+
+If yo want to add custom scalar type that will be accepted by GraphQL you need to:
+
+*  Declare a scalar in `.graphql` file in `schema` directory so that Mercurius knows to register one and define or import resolver for the field type.
+
+Required fields now are imported from `graphql-scalars` package. If you need the ones that have not been defined you need to adjust the configuration to your needs.
+
+Scalars are imported and defined in `resolvers/Scalars/scalars.resolver.ts` .
