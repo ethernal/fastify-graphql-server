@@ -1,5 +1,6 @@
 scalar DateTime
 scalar Date
+scalar Email
 
 schema {
 	query: Query
@@ -7,7 +8,7 @@ schema {
 
 type User {
 	id: ID!
-	email: String!
+	email: Email!
 	login: String!
 	createdAt: DateTime
 }

@@ -1,8 +1,6 @@
-import { IResolvers } from 'mercurius';
+import { IResolvers } from "mercurius";
 
-import { User as PrismaUser } from '@prisma/client';
-
-// import { User } from '../../generated/typings/generatedTypings';
+import { User as PrismaUser } from "@prisma/client";
 
 const resolvers: IResolvers = {
 	Query: {
