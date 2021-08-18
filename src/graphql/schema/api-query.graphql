@@ -6,11 +6,19 @@ schema {
 	query: Query
 }
 
+type Profile {
+	firstName: String
+	lastName: String
+	displayName: String
+	user: User
+}
+
 type User {
 	id: ID!
 	email: Email!
 	login: String!
-	createdAt: DateTime
+	password: String!
+	profiles: [Profile]
 }
 
 type Query {
