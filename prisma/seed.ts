@@ -16,27 +16,25 @@ async function seed() {
 	// 	data: userOne,
 	// });
 
-	prisma.user
-		.createMany({
-			data: users,
-			skipDuplicates: true,
-		})
-		.then((result) => {
-			console.log(`Affected user rows: ${result.count}`);
+	await prisma.user.createMany({
+		data: users,
+		skipDuplicates: true,
+	});
 
-			for (const profile of profiles) {
-				// const { userId, ...profileData } = profile; How to remove element with destructuring
-				prisma.profile.create({
-					data: profile,
-				});
-			}
+	console.log(`Created users.`);
 
-			for (const userData of userPersonalData) {
-				prisma.personalData.create({
-					data: userData,
-				});
-			}
+	for (const profile of profiles) {
+		// const { userId, ...profileData } = profile; How to remove element with destructuring
+		await prisma.profile.create({
+			data: profile,
 		});
+	}
+
+	for (const userData of userPersonalData) {
+		await prisma.personalData.create({
+			data: userData,
+		});
+	}
 
 	console.log("Done DB Seeding");
 

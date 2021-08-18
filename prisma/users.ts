@@ -3,8 +3,8 @@ import { Prisma } from '@prisma/client';
 export const users: Prisma.UserCreateManyInput[] = [
 	{
 		id: "1",
-		email: "admin3@example.com",
-		login: "admin3",
+		email: "admin1@example.com",
+		login: "admin1",
 		password: "admin",
 	},
 	{
