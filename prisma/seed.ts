@@ -1,30 +1,46 @@
-import { PrismaClient } from "@prisma/client";
+import { Prisma, PrismaClient } from '@prisma/client';
 
-import { users } from "./users";
+import { profiles } from './profiles';
+import { userPersonalData } from './userPersonalData';
+import { users } from './users';
 
 const prisma = new PrismaClient();
 
 async function seed() {
-	try {
-		console.log("Starting DB Seeding");
+	console.log("Starting DB Seeding");
 
-		// Prisma create query to seed models in database
-		// console.table(users);
+	// Prisma create query to seed models in database
+	// console.table(users);
 
-		const response = await prisma.user.createMany({
+	// const response = await prisma.user.create({
+	// 	data: userOne,
+	// });
+
+	prisma.user
+		.createMany({
 			data: users,
 			skipDuplicates: true,
+		})
+		.then((result) => {
+			console.log(`Affected user rows: ${result.count}`);
+
+			for (const profile of profiles) {
+				// const { userId, ...profileData } = profile; How to remove element with destructuring
+				prisma.profile.create({
+					data: profile,
+				});
+			}
+
+			for (const userData of userPersonalData) {
+				prisma.personalData.create({
+					data: userData,
+				});
+			}
 		});
 
-		console.log(`Affected rows: ${response.count}`);
-		console.log("Done DB Seeding");
-	} catch (e) {
-		console.error(e);
-		process.exit(1);
-	} finally {
-		await prisma.$disconnect();
-		console.log("Disconnected Prisma!");
-	}
+	console.log("Done DB Seeding");
+
+	prisma.$disconnect().then(() => console.log("Disconnected Prisma!"));
 }
 
 seed();

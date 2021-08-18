@@ -1,15 +1,28 @@
-import { DateTime } from 'graphql-scalars/typeDefs';
+import { Prisma } from '@prisma/client';
 
-import { User } from '@prisma/client';
-
-export const users: [User] = [
+export const users: Prisma.UserCreateManyInput[] = [
 	{
-		email: "admin@example.com",
-		login: "admin",
-		password: "admin",
-		createdAt: new Date(),
-		modifiedAt: null,
 		id: "1",
-		createdById: null,
+		email: "admin3@example.com",
+		login: "admin3",
+		password: "admin",
+	},
+	{
+		id: "2",
+		email: "admin2@example.com",
+		login: "admin2",
+		password: "admin",
+	},
+	{
+		id: "3",
+		email: "admin3@example.com",
+		login: "admin3",
+		password: "admin",
+	},
+	{
+		id: "4",
+		email: "admin4@example.com",
+		login: "admin4",
+		password: "admin",
 	},
 ];
