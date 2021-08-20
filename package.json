@@ -15,7 +15,7 @@
 		"clean": "rm -rf coverage dist src/generated",
 		"dev": "npm run clean && npm run prisma:generate && cross-env NODE_ENV=development nodemon --ignore generated/ --watch ./src/graphql -e js,ts,tsx,graphql --watch ./src/**/*.ts",
 		"prisma:format": "npx prisma format",
-		"prisma:generate": "npx prisma generate",
+		"prisma:generate": "npm run prisma:format && npx prisma generate",
 		"db:migrate": "npx prisma migrate dev",
 		"db:reset": "npx prisma migrate reset --skip-generate dev ",
 		"db:seed": "npx prisma db seed --preview-feature",
