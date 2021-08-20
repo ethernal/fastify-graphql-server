@@ -11,19 +11,23 @@ generator client {
 }
 
 model User {
-  id       String  @id @default(cuid())
+  id       String  @id @unique @default(cuid())
   email    String  @unique
   login    String  @unique
   password String?
 
-  createdAt  DateTime?     @default(now())
-  modifiedAt DateTime?
-  profiles   Profile[]
-  userData   PersonalData?
+  createdAt      DateTime?       @default(now())
+  modifiedAt     DateTime?
+  profiles       Profile[]
+  userData       PersonalData?
+  socialProfiles SocialProfile[]
+  contactList    ContactData[]
+  locationList   Location[]
+  references     Reference[]
 }
 
 model PersonalData {
-  id         String  @id @default(cuid())
+  id         String  @id @unique @default(cuid())
   photo      String?
   firstName  String
   middleName String?
@@ -34,21 +38,34 @@ model PersonalData {
 }
 
 model Profile {
-  id                 String @id @default(cuid())
+  id                 String          @id @unique @default(cuid())
   // this is for external world to see.. ex. Position applied for
   profileNamePublic  String
   // this is for the user to differenciate profiles created
   profileNamePrivate String
   userId             String
-  user               User   @relation(fields: [userId], references: [id])
+  user               User            @relation(fields: [userId], references: [id])
+  socialProfiles     SocialProfile[]
+  contact            ContactData?
+  location           Location?
+  references         Reference[]
+}
+
+model Company {
+  id                      String       @id @unique @default(cuid())
+  name                    String       @unique
+  logoURL                 String?
+  employeeReferencesGiven Reference[]
+  employeeWorkExperience  Experience[]
 }
 
 model Experience {
-  id              String              @id @default(cuid())
-  companyName     String
-  role            String
-  roleDescription String
-  url             String
+  id              String              @id @unique @default(cuid())
+  company         Company?            @relation(fields: [companyId], references: [id])
+  companyId       String
+  role            String?
+  roleDescription String?
+  url             String?
   startDate       DateTime
   endDate         DateTime
   // create multiple descriptions that can be used depending on the context
@@ -56,40 +73,57 @@ model Experience {
 }
 
 model ExperienceDetails {
-  id             String     @id @default(cuid())
+  id             String      @id @unique @default(cuid())
   summary        String
   highlights     String[]
-  experienceId   String
-  workExperience Experience @relation(fields: [experienceId], references: [id])
+  experienceId   String?
+  workExperience Experience? @relation(fields: [experienceId], references: [id])
 }
 
-model Refrences {
-  id      String  @id @default(cuid())
-  from    String
-  summary String?
-  link    String?
+model Reference {
+  id        String   @id @unique @default(cuid())
+  from      String
+  summary   String?
+  url       String?
+  companyId String?
+  company   Company? @relation(fields: [companyId], references: [id])
+  userId    String
+  user      User     @relation(fields: [userId], references: [id])
+  profileId String?
+  profile   Profile? @relation(fields: [profileId], references: [id])
 }
 
 model SocialProfile {
-  id       String @id @default(cuid())
-  network  String
-  username String
-  url      String
+  id        String   @id @unique @default(cuid())
+  network   String
+  username  String
+  url       String?
+  userId    String
+  user      User     @relation(fields: [userId], references: [id])
+  profileId String?
+  profile   Profile? @relation(fields: [profileId], references: [id])
 }
 
 model ContactData {
-  id    String  @id @default(cuid())
-  phone String?
-  email String  @unique
-  url   String?
-
+  id        String   @id @unique @default(cuid())
+  phone     String?
+  email     String?
+  url       String?
+  userId    String?
+  user      User?    @relation(fields: [userId], references: [id])
+  profileId String?
+  profile   Profile? @relation(fields: [profileId], references: [id])
 }
 
 model Location {
-  id          String  @id @default(cuid())
+  id          String   @id @unique @default(cuid())
   address     String
   postalCode  String
   city        String
   countryCode String
   region      String?
+  userId      String?
+  user        User?    @relation(fields: [userId], references: [id])
+  profileId   String?
+  profile     Profile? @relation(fields: [profileId], references: [id])
 }
