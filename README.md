@@ -1,3 +1,7 @@
+> Beware There Be Dragons!
+> This is a work in progress project.
+> It is usable as is but is missing some features I think are required for any serious server.
+
 Delightful developer experience is all I want when building backend. Customized and easily explainable configurations without tons of magic are rare. I have spend few evenings creating this template and I do hope it will allow me and you to start with complete stack required by small and medium projects.
 
 # What is this template?
@@ -71,3 +75,32 @@ If yo want to add custom scalar type that will be accepted by GraphQL you need t
 Required fields now are imported from `graphql-scalars` package. If you need the ones that have not been defined you need to adjust the configuration to your needs.
 
 Scalars are imported and defined in `resolvers/Scalars/scalars.resolver.ts` .
+
+# Next Planned Tasks
+
+Improve documentation and examples in README.
+Implement authentication and authorization.
+
+# Latest Features
+
+Seeding works now with Prisma Connect.
+
+# Known issues
+
+None at the moment of writing..
+
+# Planned Features
+
+File Upload with mercurius-upload.
+Serving uploaded files with fastify-static.
+Authentication with mercurius-auth.
+Possibly more (all?) scalars for GraphQL.
+
+# Random Quote
+
+Through action, a man becomes a hero.
+Through death, a hero becomes a legend.
+Through time, a legend becomes a Myth.
+And by learning from the Myth, a man takes action.
+
+Source: https://www.youtube.com/watch?v=tEz1W_O2heU
