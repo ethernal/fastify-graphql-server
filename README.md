@@ -14,7 +14,7 @@ This template should provide you with a very fast GraphQL server that uses non-m
 *  Typescript to have better developer experience code completion and less bugs.
 *  Typescript configured for "modern" output.
 *  Auto-generated typings for resolvers by mercurius-codegen.
-*  Auto-merged resolvers can be imported from `mergedResolvers` file as `resolvers` as long as all functions are inside `resolvers` folder.
+*  Auto-merged resolvers can be imported from `mergedResolvers` file as `resolvers` as long as all functions are inside `resolvers` folder and follow `fileName.resolver.ts` naming scheme.
 *  Auto-generated schema from partial files in 'graphql' folder.
 *  Jest as a test runner configured to work with Typescript.
 *  Integration / end-to-end testing done with Jest and `mercurius-integration-testing` package.
