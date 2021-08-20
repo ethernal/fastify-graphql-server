@@ -14,7 +14,7 @@ This template should provide you with a very fast GraphQL server that uses non-m
 *  Typescript to have better developer experience code completion and less bugs.
 *  Typescript configured for "modern" output.
 *  Auto-generated typings for resolvers by mercurius-codegen.
-*  Auto-merged resolvers can be imported from `mergedResolvers` file as `resolvers` as long as all functions are inside `resolvers` folder.
+*  Auto-merged resolvers can be imported from `mergedResolvers` file as `resolvers` as long as all functions are inside `resolvers` folder and follow `fileName.resolver.ts` naming scheme.
 *  Auto-generated schema from partial files in 'graphql' folder.
 *  Jest as a test runner configured to work with Typescript.
 *  Integration / end-to-end testing done with Jest and `mercurius-integration-testing` package.
@@ -55,7 +55,7 @@ Very simple code examples are also provided to show how code can be structured. 
 ### Resolvers / Execution Code for API
 
 ```bash
-src/resolvers/**/[API-function].ts
+src/resolvers/**/[API-function].resolver.ts
 ```
 
 While the GraphQL APi is a definition of the functionality, the resolvers are the "how" of it. They define how to fetch the data from the DB if needed or calculate/run functions that are expected to achieve a result.
